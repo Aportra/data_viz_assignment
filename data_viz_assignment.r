@@ -2,7 +2,7 @@ library(tidymodels)
 library(readxl)
 library(lubridate)
 
-car_data = read_xlsx('Data Viz Assignment_ Carbitrage Data.xlsx')
+car_data <- read_xlsx("Data Viz Assignment_ Carbitrage Data.xlsx")
 
 View(car_data)
 
@@ -15,45 +15,22 @@ cleaned_data = recipe(~., data = car_data) %>%
     step_naomit(all_predictors()) %>%
     prep() %>%
     juice()
-    
 
-#First Visuzalizations
 
-ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]))) +
-    geom_bar(stat = 'count', aes(fill = after_stat(count))) +
-    scale_color_gradient()+
+# First Visuzalizations
+data_for_viz = cleaned_data %>%
+    group_by(make, model) %>%
+    summarise(count = n()) %>%
+    arrange(desc(count))
+
+
+top_car_counts = head(data_for_viz,50)
+
+ggplot(data = top_car_counts, aes(y = reorder(paste(make, model), count), x = count, fill = count)) +
+    geom_bar(stat = "identity") +
+    scale_fill_gradient(low = "lightblue", high = "darkblue")+
     theme_minimal() +
-    labs(y = "Car Make", x = "Count", title = "Most Popular Car Makes")
-
-
-
-ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]),fill = model)) +
-    geom_bar(stat = 'count', position = 'stack') +
-    theme_minimal() +
-    labs(y = "Car Make", x = "Count", title = "Most Popular Car Models")
-
-
-
-list_models = c()
-
-for(models in cleaned_data$model){
-    if(!models %in% list_models && !is.na(models)){
-        list_models =  c(list_models,models)
-    }
-}
-
-print(length(list_models))
-
-list_makes = c()
-
-for(makes in cleaned_data$make){
-    if(!makes %in% list_makes && !is.na(makes)){
-        list_makes =  c(list_makes,makes)
-    }
-}
-
-
-
+    labs(y = "Car Make and Model", x = "Count", title = "Most Popular Car Makes")
 
 # Second Data Visualizatoins
 
@@ -64,22 +41,28 @@ cleaned_data2$time_posted = as.Date(cleaned_data$time_posted)
 
 
 
-daily_plot = cleaned_data2 %>%
-    group_by(time_posted) %>%
-    summarise(Count = n()) %>%
-    ggplot(aes(x = time_posted, y = Count))+
-    geom_line()+
-    theme_minimal()+
-    labs(x = 'Date', y = 'Frequency',title = 'Postings Per Day')
+# daily_plot <- cleaned_data2 %>%
+#     group_by(time_posted) %>%
+#     summarise(Count = n()) %>%
+#     ggplot(aes(x = time_posted, y = Count)) +
+#     geom_line() +
+#     theme_minimal() +
+#     labs(x = "Date", y = "Frequency", title = "Postings Per Day") +
+#     geom_text(aes(label = ifelse(time_posted == as.Date("2024-07-03"), Count, "")), vjust = -1, hjust = 1) +
+#     geom_point(aes(x = time_posted, y = Count))
 
-daily_plot
+# daily_plot
 
-weekly_plot = cleaned_data2 %>%
-    mutate(week = floor_date(time_posted, unit = "week")) %>%  # Create a new 'week' column by rounding dates to the start of the week
+weekly_data <- cleaned_data2 %>%
+    mutate(week = floor_date(time_posted, unit = "week")) %>% # Create a new 'week' column by rounding dates to the start of the week
     group_by(week) %>%
-    summarise(Count = n()) %>%  # Summarize the number of posts per week
-    ggplot(aes(x = week, y = Count)) +
-    geom_line() +  # Create a bar plot
+    summarise(Count = n())
+
+ggplot(data = weekly_data, aes(x = week, y = Count)) +
+    geom_line() +
     labs(title = "Weekly New Car Postings", x = "Week", y = "Number of Cars Posted") +
+    geom_text(aes(label = ifelse(week == as.Date("2024-06-30"), Count, "")), vjust = -1, hjust = 1) +
+    geom_point(aes(x = week, y = Count)) +
     theme_minimal()
+
 
