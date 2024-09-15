@@ -1,5 +1,6 @@
 library(tidymodels)
 library(readxl)
+library(lubridate)
 
 car_data = read_xlsx('Data Viz Assignment_ Carbitrage Data.xlsx')
 
@@ -53,40 +54,33 @@ for(makes in cleaned_data$make){
 }
 
 
-ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]), fill = model)) +
-    geom_bar(position = "stack", stat = "count") +
-    theme_minimal()
 
 
 # Second Data Visualizatoins
+
+
 cleaned_data2 = cleaned_data
+
 cleaned_data2$time_posted = as.Date(cleaned_data$time_posted)
 
 
-dates = c()
-freq = c()
 
-for(date in unique(cleaned_data2$time_posted)){
-    dates = c(dates,(as.Date(date)))
-    freq = c(freq, sum(cleaned_data2$time_posted == date))
-}
+daily_plot = cleaned_data2 %>%
+    group_by(time_posted) %>%
+    summarise(Count = n()) %>%
+    ggplot(aes(x = time_posted, y = Count))+
+    geom_line()+
+    theme_minimal()+
+    labs(x = 'Date', y = 'Frequency',title = 'Postings Per Day')
 
-date_freq = tibble(dates = as.Date(dates), freq = freq)
+daily_plot
 
+weekly_plot = cleaned_data2 %>%
+    mutate(week = floor_date(time_posted, unit = "week")) %>%  # Create a new 'week' column by rounding dates to the start of the week
+    group_by(week) %>%
+    summarise(Count = n()) %>%  # Summarize the number of posts per week
+    ggplot(aes(x = week, y = Count)) +
+    geom_line() +  # Create a bar plot
+    labs(title = "Weekly New Car Postings", x = "Week", y = "Number of Cars Posted") +
+    theme_minimal()
 
-date_freq = date_freq[date_freq$freq >= 30,]
-
-date_freq$freq[5]
-
-ggplot(data = cleaned_data, aes(x = time_posted, y = freq))+
-geom_line()
-
-dates2 = c()
-freq2 = c()
-
-for(date in unique(cleaned_data$time_posted)){
-    dates2 = c(dates2,date)
-    freq2 = c(freq2, sum(cleaned_data$time_posted == date))
-}
-
-date_freq2 = tibble(dates = dates, freq = freq)
