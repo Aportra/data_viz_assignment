@@ -24,7 +24,7 @@ for (makes in list_makes) {
 ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]))) +
     geom_bar(stat = 'count', aes(fill = after_stat(count))) +
     theme_minimal() +
-    labs(y = "Car Make", x = "Count", title = "Most Popular Car Models")
+    labs(y = "Car Make", x = "Count", title = "Most Popular Car Makes")
 
 
 
@@ -55,9 +55,6 @@ for(makes in cleaned_data$make){
 }
 
 
-for(models in list_models){
-    if(sum(cleaned_data$model == models) < 1){
-        print(models)
-        print(sum(cleaned_data$model == models))
-    }
-}
+ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]), fill = model)) +
+    geom_bar(position = "stack", stat = "count") +
+    theme_minimal()
