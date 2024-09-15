@@ -31,7 +31,7 @@ ggplot(data = top_car_counts, aes(y = reorder(paste(make, model), count), x = co
     scale_fill_gradient(low = "lightblue", high = "darkblue") +
     theme_minimal() +
     labs(y = "Car Make and Model", x = "Count", title = "Most Popular Car Makes") +
-    theme(legend.position = 'none')
+    theme(legend.position = "none")
 
 # Second Data Visualizatoins
 
@@ -62,10 +62,9 @@ weekly_data <- cleaned_data2 %>%
 ggplot(data = weekly_data, aes(x = week, y = Count)) +
     geom_line() +
     labs(title = "Weekly New Car Postings", x = "Week", y = "Number of Cars Posted") +
-    geom_text(aes(label = ifelse(week == as.Date("2024-06-30"), Count, "")), vjust = -1, hjust = 1) +
+    geom_text(aes(label = ifelse(week == as.Date("2024-06-30") | week == as.Date("2024-08-25"), Count, "")), vjust = -1, hjust = 1) +
     geom_point(aes(x = week, y = Count)) +
     theme_minimal()
 
 
 # Third Visualization
-
