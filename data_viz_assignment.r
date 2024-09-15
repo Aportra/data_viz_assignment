@@ -11,7 +11,7 @@ summary(car_data)
 
 # Cleaning Data with tidymodels this is for plotting the most popular cars
 
-cleaned_data = recipe(~., data = car_data) %>%
+cleaned_data <- recipe(~., data = car_data) %>%
     step_naomit(all_predictors()) %>%
     prep() %>%
     juice()
@@ -24,20 +24,21 @@ data_for_viz = cleaned_data %>%
     arrange(desc(count))
 
 
-top_car_counts = head(data_for_viz,50)
+top_car_counts <- head(data_for_viz, 50)
 
 ggplot(data = top_car_counts, aes(y = reorder(paste(make, model), count), x = count, fill = count)) +
     geom_bar(stat = "identity") +
-    scale_fill_gradient(low = "lightblue", high = "darkblue")+
+    scale_fill_gradient(low = "lightblue", high = "darkblue") +
     theme_minimal() +
-    labs(y = "Car Make and Model", x = "Count", title = "Most Popular Car Makes")
+    labs(y = "Car Make and Model", x = "Count", title = "Most Popular Car Makes") +
+    theme(legend.position = 'none')
 
 # Second Data Visualizatoins
 
 
-cleaned_data2 = cleaned_data
+cleaned_data2 <- cleaned_data
 
-cleaned_data2$time_posted = as.Date(cleaned_data$time_posted)
+cleaned_data2$time_posted <- as.Date(cleaned_data$time_posted)
 
 
 
@@ -65,4 +66,6 @@ ggplot(data = weekly_data, aes(x = week, y = Count)) +
     geom_point(aes(x = week, y = Count)) +
     theme_minimal()
 
+
+# Third Visualization
 
