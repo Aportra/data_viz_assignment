@@ -16,13 +16,11 @@ cleaned_data = recipe(~., data = car_data) %>%
     juice()
     
 
-
-for (makes in list_makes) {
-    print(sum(cleaned_data$make == makes))
-}
+#First Visuzalizations
 
 ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]))) +
     geom_bar(stat = 'count', aes(fill = after_stat(count))) +
+    scale_color_gradient()+
     theme_minimal() +
     labs(y = "Car Make", x = "Count", title = "Most Popular Car Makes")
 
@@ -58,3 +56,27 @@ for(makes in cleaned_data$make){
 ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]), fill = model)) +
     geom_bar(position = "stack", stat = "count") +
     theme_minimal()
+
+
+# Second Data Visualizatoins
+cleaned_data2 = cleaned_data
+cleaned_data2$time_posted = as.Date(cleaned_data$time_posted)
+
+
+dates = c()
+freq = c()
+
+for(date in unique(cleaned_data2$time_posted)){
+    dates = c(dates,(as.Date(date)))
+    freq = c(freq, sum(cleaned_data2$time_posted == date))
+}
+
+date_freq = tibble(dates = as.Date(dates), freq = freq)
+
+
+date_freq = date_freq[date_freq$freq >= 30,]
+
+date_freq$freq[5]
+
+ggplot(data = date_freq, aes(x = dates, y = freq))+
+geom_line()
