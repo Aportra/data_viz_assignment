@@ -78,5 +78,15 @@ date_freq = date_freq[date_freq$freq >= 30,]
 
 date_freq$freq[5]
 
-ggplot(data = date_freq, aes(x = dates, y = freq))+
+ggplot(data = cleaned_data, aes(x = time_posted, y = freq))+
 geom_line()
+
+dates2 = c()
+freq2 = c()
+
+for(date in unique(cleaned_data$time_posted)){
+    dates2 = c(dates2,date)
+    freq2 = c(freq2, sum(cleaned_data$time_posted == date))
+}
+
+date_freq2 = tibble(dates = dates, freq = freq)
