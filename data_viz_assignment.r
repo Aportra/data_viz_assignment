@@ -27,11 +27,10 @@ ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]))) +
 
 
 
-ggplot(data = cleaned_data, aes(y = reorder(model, table(model)[model]))) +
-    geom_bar(stat = 'count', aes(fill = after_stat(count))) +
+ggplot(data = cleaned_data, aes(y = reorder(make, table(make)[make]),fill = model)) +
+    geom_bar(stat = 'count', position = 'stack') +
     theme_minimal() +
     labs(y = "Car Make", x = "Count", title = "Most Popular Car Models")
-
 
 
 
