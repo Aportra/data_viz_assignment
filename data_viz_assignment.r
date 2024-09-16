@@ -68,3 +68,8 @@ ggplot(data = weekly_data, aes(x = week, y = Count)) +
 
 
 # Third Visualization
+
+location_data = cleaned_data2 %>%
+    group_by(location) %>%
+    summarise(count = n())
+    
