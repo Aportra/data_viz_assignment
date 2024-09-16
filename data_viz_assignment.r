@@ -70,6 +70,18 @@ ggplot(data = weekly_data, aes(x = week, y = Count)) +
 # Third Visualization
 
 location_data = cleaned_data2 %>%
-    group_by(location) %>%
+    mutate(week = floor_date(time_posted, unit = "week")) %>%
+    group_by(location,week) %>%
     summarise(count = n())
-    
+
+View(location_data)
+
+
+location_data %>%
+group_by(location) %>%
+summarise(avg = mean(count)) %>%
+arrange(desc(avg)) %>%
+head(10)
+
+
+
