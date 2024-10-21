@@ -1,88 +1,52 @@
-# TSWD: Data Visualization Assignment
+# Carbitrage Data Visualization Project
 
-## Introduction
-Welcome to the assignment for Module 1 of _"Telling Stories with Data"!_ In this assignment, you will apply the knowledge and techniques you've learned about data-driven storytelling and data visualization.
+This repository contains visualizations based on the **Carbitrage** dataset, created as part of the "Telling Stories with Data" (TSWD) course. The project focuses on applying data visualization techniques to uncover insights from car listing data scraped from Craigslist across the U.S.
 
-## Assignment Overview
-1. **Synthesis of Knowledge**  
-   This assignment combines the concepts, tools, and methodologies covered in Module 1. Your task is to effectively communicate complex information through data visualization.
+## Table of Contents
 
-2. **Your Visualization Task**  
-   You will create and submit **five distinct visualizations**. You can select from a pool of options with varying complexity levels.
+- [Overview](#overview)
+- [Dataset](#dataset)
+- [Visualization Tasks](#visualization-tasks)
+- [Tools](#tools)
 
-3. **Choice of Visualizations**  
-   Visualizations are categorized into three tiers:
-   - **Easy Choices (7 options):** Choose any three.
-   - **Medium Choices (3 options):** Choose one.
-   - **Difficult Choices (3 options):** Choose one.
+## Overview
 
-   The goal is to challenge you with a mix of easy, medium, and hard visualizations to diversify your skills and push your boundaries while still practicing foundational techniques.
+This project involves the creation of five visualizations that explore different aspects of the **Carbitrage** dataset, which includes car listings from Craigslist. The visualizations range in complexity and aim to tell compelling stories about car trends, postings, and market dynamics.
 
-   **Important:**  
-   - Use **Microsoft Excel** or **Google Sheets** to create the visualizations. Graduate students selecting the technical option should use **ggplot** in R.  
-   - For each visualization, go through Ann Emery's **data visualization checklist** and report your score. You can fill out the checklist PDF for each visualization and combine them into a single PDF for submission.
+Visualizations are categorized by difficulty:
+- **Easy**: 3 visualizations
+- **Medium**: 1 visualization
+- **Difficult**: 1 visualization
 
-## Data Sources
-The visualizations will be based on the following datasets:
+The goal is to challenge and develop skills in data storytelling while showcasing insights from the data.
 
-### 1. Carbitrage  
-A dataset from a personal project, scraping all cars listed on Craigslist across the U.S., focusing on how we can communicate insights to car shoppers or those interested in car trends. This data will also be used for the dashboard project.
+## Dataset
 
-### 2. The Dram Shop  
-Data from a local tap house, analyzing patterns in drink sales. This data will also be used in a presentation project.
+### Carbitrage
 
-### 3. City of Missoula Unhoused Data  
-Vital data concerning the unhoused population in Missoula, helping us understand demographics, patterns, and challenges faced by this population.
+The **Carbitrage** dataset consists of car listings scraped from Craigslist across the U.S. It includes data such as car make, model, price, mileage, posting date, and geographic location. This dataset allows for the exploration of trends such as:
+- The most popular car makes and models
+- Posting frequency by location and time
+- Relationships between car age, mileage, and other factors
 
-You can select visualizations from any dataset, but must adhere to the guideline of submitting three "easy," one medium, and one difficult visualization.
+This dataset will also be used in future dashboard projects, enabling interactive analysis for car shoppers and industry enthusiasts.
 
----
+## Visualization Tasks
 
-### Carbitrage Visualization Tasks
+The following visualizations are created based on the **Carbitrage** dataset:
 
-- **Easy:**
-  - Build a visualization that illustrates the most popular car makes and models.
-  - Visualize the rate at which new cars are posted (by day or week). Optionally, add location data.
-  - Show the posting rates across various Craigslist locations (e.g., posts per week per location).
-  
-- **Medium:**
-  - Create a visualization answering: _When are cars typically posted by location?_ Highlight interesting data features.
-  
-- **Difficult:**
-  - Assume a user has given you a make, model, and optionally, a year range. Create a visualization capturing the relationship between car age and mileage for that make/model.
+### Easy
+- **Popular Car Makes and Models**: A visualization highlighting the most frequently listed car makes and models across the dataset.
+- **Posting Rates Over Time**: A chart showing how frequently cars are posted (daily/weekly) across all locations.
+- **Posting Rates by Location**: A map or chart illustrating the number of postings across different Craigslist locations.
 
----
+### Medium
+- **Posting Times by Location**: A visualization exploring when cars are typically posted in different locations, revealing any interesting patterns or anomalies.
 
-### The Dram Shop Visualization Tasks
+### Difficult
+- **Car Age vs. Mileage**: A detailed plot that captures the relationship between car age and mileage, filtered by specific makes, models, and year ranges provided by the user.
 
-- **Easy:**
-  - Visualize the popularity of various beer types (using the "Category" field) over time.
-  - Show purchase patterns by day of the week for both the Front Street and Central locations.
-  - Analyze purchase patterns by time of day for the Front Street and Central locations (limit to working days or weekends).
-  
-- **Medium:**
-  - Compare the performance of the two Dram Shop locations across the entire dataset.
+## Tools
 
-- **Difficult:**
-  - Explore trends in beer consumption, analyzing types of beers being purchased. Use the "Category" field or request item-level data.
-
----
-
-### City of Missoula Unhoused Data Visualization Tasks
-
-- **Easy:**
-  - Visualize aspects of client age, possibly across time.
-  - Show the annual pattern of HMIS entries.
-  - Visualize the change in the unhoused population over time.
-  
-- **Medium:**
-  - Illustrate the demographic makeup of clients across ages and genders.
-  
-- **Difficult:**
-  - Calculate the total time each client has spent in the HMIS system. Create a visualization exploring this "unhoused duration" and discuss an interesting facet of the data.
-
----
-
-## Submission Instructions
-- Submit your visualizations in a **PDF** by the due date indicated on Canvas.
-- Don't hesitate to reach out with any questions!
+- **R** with **ggplot2**: Used to create all visualizations, providing powerful tools for data analysis and visualization.
+- **Ann Emery’s Data Visualization Checklist**: Each visualization is evaluated using this checklist to ensure clarity, accuracy, and visual appeal.
